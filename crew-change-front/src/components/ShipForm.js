@@ -12,7 +12,10 @@ const ShipForm = () => {
   const [ship, setShip] = useState({
     armador: '',
     porto: '',
+    numeroAtendimento: '',
     quantidadeON: '',
+    quantidadeOFF: '',
+    IMO: '',
   });
   const navigate = useNavigate();
   const { id } = useParams();
@@ -21,7 +24,7 @@ const ShipForm = () => {
     if (id) {
       const apiUrl = process.env.REACT_APP_API_URL;
       axios
-        .get(`${apiUrl}/ships/${id}`)
+        .get(`${apiUrl}/api/ships/${id}`)
         .then((response) => setShip(response.data))
         .catch((error) => console.error(error));
     }
@@ -36,8 +39,8 @@ const ShipForm = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const method = id ? 'put' : 'post';
     const url = id
-      ? `${apiUrl}/ships/${id}`
-      : `${apiUrl}/ships`;
+      ? `${apiUrl}/api/ships/${id}`
+      : `${apiUrl}/api/ships`;
 
     axios[method](url, ship)
       .then(() => navigate('/ships'))
@@ -68,6 +71,15 @@ const ShipForm = () => {
           margin="normal"
         />
         <TextField
+          label="Número de Atendimento"
+          name="numeroAtendimento"
+          value={ship.numeroAtendimento}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
           label="Quantidade ON"
           name="quantidadeON"
           value={ship.quantidadeON}
@@ -75,6 +87,23 @@ const ShipForm = () => {
           fullWidth
           margin="normal"
           type="number"
+        />
+        <TextField
+          label="Quantidade OFF"
+          name="quantidadeOFF"
+          value={ship.quantidadeOFF}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          type="number"
+        />
+        <TextField
+          label="IMO"
+          name="IMO"
+          value={ship.IMO}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
         />
         <Button
           variant="contained"

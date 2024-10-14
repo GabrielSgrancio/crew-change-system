@@ -1,4 +1,4 @@
-
+const Company = require('../models/Company');
 const Ship = require('../models/Ship');
 
 exports.createShip = async (req, res) => {

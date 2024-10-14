@@ -9,7 +9,7 @@ const NavBar = () => {
       <Toolbar>
         <Logo />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 2 }}>
-          Sistema de Crew Change
+          Crew Change
         </Typography>
         <Box>
           <Button color="inherit" component={Link} to="/">

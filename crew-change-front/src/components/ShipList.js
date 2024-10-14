@@ -20,17 +20,17 @@ const ShipList = () => {
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
     axios
-      .get(`${apiUrl}/ships`)
+      .get(`${apiUrl}/api/ships`)
       .then((response) => setShips(response.data))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Erro ao buscar navios:', error));
   }, []);
 
   const deleteShip = (id) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     axios
-      .delete(`${apiUrl}/ships/${id}`)
+      .delete(`${apiUrl}/api/ships/${id}`)
       .then(() => setShips(ships.filter((ship) => ship._id !== id)))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Erro ao deletar navio:', error));
   };
 
   return (
@@ -52,7 +52,10 @@ const ShipList = () => {
           <TableRow>
             <TableCell>Armador</TableCell>
             <TableCell>Porto</TableCell>
+            <TableCell>Número de Atendimento</TableCell>
             <TableCell>Quantidade ON</TableCell>
+            <TableCell>Quantidade OFF</TableCell>
+            <TableCell>IMO</TableCell>
             <TableCell>Ações</TableCell>
           </TableRow>
         </TableHead>
@@ -61,7 +64,10 @@ const ShipList = () => {
             <TableRow key={ship._id}>
               <TableCell>{ship.armador}</TableCell>
               <TableCell>{ship.porto}</TableCell>
+              <TableCell>{ship.numeroAtendimento}</TableCell>
               <TableCell>{ship.quantidadeON}</TableCell>
+              <TableCell>{ship.quantidadeOFF}</TableCell>
+              <TableCell>{ship.IMO}</TableCell>
               <TableCell>
                 <IconButton
                   color="primary"

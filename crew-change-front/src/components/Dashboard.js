@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 import {
   Card,
   CardContent,
@@ -48,7 +49,7 @@ const Dashboard = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary" component={Link} to={`/flights/${flight._id}`}>
+                 <Button size="small" color="primary" component={Link} to={`/flights/${flight._id}`}>
                   Detalhes
                 </Button>
               </CardActions>
