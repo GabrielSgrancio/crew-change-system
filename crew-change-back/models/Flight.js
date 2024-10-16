@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const FlightSchema = new mongoose.Schema({
   numeroAtendimento: { type: String, required: true },
+  navio:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ship' }],
   companhiaAerea: { type: String },
   numeroVoo: { type: String },
   onSigners: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CrewMember' }],

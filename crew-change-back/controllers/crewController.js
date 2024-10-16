@@ -1,4 +1,3 @@
-// controllers/crewController.js
 const CrewMember = require('../models/CrewMember');
 
 exports.createCrewMember = async (req, res) => {

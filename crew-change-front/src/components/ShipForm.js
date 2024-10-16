@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const ShipForm = () => {
   const [ship, setShip] = useState({
+    nome: '',
     armador: '',
     porto: '',
     numeroAtendimento: '',
@@ -24,7 +25,7 @@ const ShipForm = () => {
     if (id) {
       const apiUrl = process.env.REACT_APP_API_URL;
       axios
-        .get(`${apiUrl}/api/ships/${id}`)
+        .get(`${apiUrl}api/ships/${id}`)
         .then((response) => setShip(response.data))
         .catch((error) => console.error(error));
     }
@@ -39,8 +40,8 @@ const ShipForm = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const method = id ? 'put' : 'post';
     const url = id
-      ? `${apiUrl}/api/ships/${id}`
-      : `${apiUrl}/api/ships`;
+      ? `${apiUrl}api/ships/${id}`
+      : `${apiUrl}api/ships`;
 
     axios[method](url, ship)
       .then(() => navigate('/ships'))
@@ -53,6 +54,15 @@ const ShipForm = () => {
         {id ? 'Editar Navio' : 'Adicionar Navio'}
       </Typography>
       <form onSubmit={handleSubmit}>
+      <TextField
+          label="Nome"
+          name="nome"
+          value={ship.nome}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
         <TextField
           label="Armador"
           name="armador"
