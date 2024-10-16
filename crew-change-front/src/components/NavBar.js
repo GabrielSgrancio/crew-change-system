@@ -5,7 +5,7 @@ import Logo from './Logo';
 
 const NavBar = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" sx={{ top: 0, left: 0, right: 0 }}>
       <Toolbar>
         <Logo />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, marginLeft: 2 }}>

@@ -3,7 +3,7 @@ const router = express.Router();
 const crewController = require('../controllers/crewController');
 const auth = require('../middlewares/auth');
 
-router.use(auth);
+//router.use(auth);
 
 router.post('/', crewController.createCrewMember);
 router.get('/', crewController.getCrewMembers);

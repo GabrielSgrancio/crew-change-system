@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ShipSchema = new mongoose.Schema({
+  nome: {type:String},
   armador: { type: String },
   empresa: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
   porto: { type: String },

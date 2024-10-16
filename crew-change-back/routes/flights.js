@@ -4,7 +4,7 @@ const router = express.Router();
 const flightController = require('../controllers/flightController');
 const auth = require('../middlewares/auth');
 
-router.use(auth);
+//router.use(auth);
 
 router.post('/', flightController.createFlight);
 router.get('/', flightController.getFlights);

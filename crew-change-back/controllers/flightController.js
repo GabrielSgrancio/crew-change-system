@@ -1,4 +1,4 @@
-
+const Ship = require('../models/Ship');
 const Flight = require('../models/Flight');
 
 exports.createFlight = async (req, res) => {

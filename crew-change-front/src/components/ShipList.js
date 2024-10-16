@@ -20,7 +20,7 @@ const ShipList = () => {
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
     axios
-      .get(`${apiUrl}/api/ships`)
+      .get(`${apiUrl}api/ships`)
       .then((response) => setShips(response.data))
       .catch((error) => console.error('Erro ao buscar navios:', error));
   }, []);
@@ -28,7 +28,7 @@ const ShipList = () => {
   const deleteShip = (id) => {
     const apiUrl = process.env.REACT_APP_API_URL;
     axios
-      .delete(`${apiUrl}/api/ships/${id}`)
+      .delete(`${apiUrl}api/ships/${id}`)
       .then(() => setShips(ships.filter((ship) => ship._id !== id)))
       .catch((error) => console.error('Erro ao deletar navio:', error));
   };
@@ -50,6 +50,7 @@ const ShipList = () => {
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>Nome</TableCell>
             <TableCell>Armador</TableCell>
             <TableCell>Porto</TableCell>
             <TableCell>Número de Atendimento</TableCell>
@@ -62,6 +63,7 @@ const ShipList = () => {
         <TableBody>
           {ships.map((ship) => (
             <TableRow key={ship._id}>
+              <TableCell>{ship.nome}</TableCell>
               <TableCell>{ship.armador}</TableCell>
               <TableCell>{ship.porto}</TableCell>
               <TableCell>{ship.numeroAtendimento}</TableCell>
