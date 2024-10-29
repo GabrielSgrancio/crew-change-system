@@ -20,11 +20,16 @@ const authRoutes = require('./routes/auth');
 const shipRoutes = require('./routes/ships');
 const crewRoutes = require('./routes/crew');
 const flightRoutes = require('./routes/flights');
+const portRoutes = require('./routes/ports');
+const companyRoutes = require('./routes/companies');
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/ships', shipRoutes);
 app.use('/api/crew', crewRoutes);
 app.use('/api/flights', flightRoutes);
+app.use('/api/ports', portRoutes);
+app.use('/api/companies', companyRoutes);
 
 // Iniciar o servidor
 const PORT = process.env.PORT || 5000;

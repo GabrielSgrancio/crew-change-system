@@ -5,29 +5,51 @@ import {
   Button,
   Container,
   Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Box
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ShipForm = () => {
   const [ship, setShip] = useState({
     nome: '',
+    empresa: '',
     armador: '',
     porto: '',
     numeroAtendimento: '',
     quantidadeON: '',
     quantidadeOFF: '',
-    IMO: '',
   });
+
+  const [ports, setPorts] = useState([]);
+  const [empresas, setEmpresas  ] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+
+    // Fetch ports
+    axios
+      .get(`${apiUrl}api/ports`)
+      .then((response) => setPorts(response.data))
+      .catch((error) => console.error('Erro ao buscar portos:', error));
+
+    // Fetch armadores
+    axios
+      .get(`${apiUrl}api/companies`)
+      .then((response) => setEmpresas(response.data))
+      .catch((error) => console.error('Erro ao buscar empresas:', error));
+
+    // Fetch ship data if id is present
     if (id) {
-      const apiUrl = process.env.REACT_APP_API_URL;
       axios
         .get(`${apiUrl}api/ships/${id}`)
         .then((response) => setShip(response.data))
-        .catch((error) => console.error(error));
+        .catch((error) => console.error('Erro ao buscar navio:', error));
     }
   }, [id]);
 
@@ -45,19 +67,64 @@ const ShipForm = () => {
 
     axios[method](url, ship)
       .then(() => navigate('/ships'))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Erro ao enviar dados:', error));
+  };
+
+  const handleCancel = () => {
+    navigate(-1); 
   };
 
   return (
-    <Container sx={{ marginTop: 4 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container sx={{ marginTop: 11 }}>
+      <Typography variant="h4" gutterBottom align="center">
         {id ? 'Editar Navio' : 'Adicionar Navio'}
       </Typography>
       <form onSubmit={handleSubmit}>
-      <TextField
+        <TextField
           label="Nome"
           name="nome"
           value={ship.nome}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+      <FormControl fullWidth margin="normal">
+        <InputLabel id="empresa-label">Empresa</InputLabel>
+        <Select
+          labelId="empresa-label"
+          name="empresa"
+          value={ship.empresas}
+          onChange={handleChange}
+          required
+        >
+            {empresas.map((empresas) => (
+              <MenuItem key={empresas._id} value={empresas._id}>
+                {empresas.nome}
+              </MenuItem>
+    ))}
+  </Select>
+  </FormControl>
+  <FormControl fullWidth margin="normal">
+  <InputLabel id="porto-label">Porto</InputLabel>
+    <Select
+      labelId="porto-label"
+      name="porto"
+      value={ship.porto}
+      onChange={handleChange}
+      required
+    >
+      {ports.map((porto) => (
+        <MenuItem key={porto._id} value={porto._id}>
+          {porto.nome}
+        </MenuItem>
+      ))}
+      </Select>
+        </FormControl>
+        <TextField
+          label="Número de Atendimento"
+          name="numeroAtendimento"
+          value={ship.numeroAtendimento}
           onChange={handleChange}
           fullWidth
           margin="normal"
@@ -67,23 +134,6 @@ const ShipForm = () => {
           label="Armador"
           name="armador"
           value={ship.armador}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Porto"
-          name="porto"
-          value={ship.porto}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Número de Atendimento"
-          name="numeroAtendimento"
-          value={ship.numeroAtendimento}
           onChange={handleChange}
           fullWidth
           margin="normal"
@@ -107,14 +157,7 @@ const ShipForm = () => {
           margin="normal"
           type="number"
         />
-        <TextField
-          label="IMO"
-          name="IMO"
-          value={ship.IMO}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-start', gap: 2, marginTop: 2 }}>
         <Button
           variant="contained"
           color="primary"
@@ -123,6 +166,15 @@ const ShipForm = () => {
         >
           {id ? 'Salvar Alterações' : 'Adicionar'}
         </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleCancel}
+          sx={{ backgroundColor: 'red', color: 'white', marginTop: 2 }}
+        >
+        Cancelar
+        </Button>
+        </Box>
       </form>
     </Container>
   );

@@ -33,8 +33,13 @@ const CrewMembersListList = () => {
       .catch((error) => console.error('Erro ao deletar navio:', error));
   };
 
+  const formatDate = (dateString) => {
+    const options = {day: '2-digit', month: '2-digit,', year:'numeric'};
+    return new Date(dateString).toLocaleDateString('pt-BR', options)
+  }
+
   return (
-    <Container sx={{ marginTop: 4 }}>
+    <Container sx={{ marginTop: 10 }}>
       <Typography variant="h4" gutterBottom>
         Tripulantes
       </Typography>
@@ -58,7 +63,6 @@ const CrewMembersListList = () => {
             <TableCell>PP Ex</TableCell>
             <TableCell>SBK</TableCell>
             <TableCell>SBK EX</TableCell>
-            <TableCell>Validade Seamans</TableCell>
             <TableCell>voo Numero</TableCell>
             <TableCell>Rank</TableCell>
             <TableCell></TableCell>
@@ -68,8 +72,9 @@ const CrewMembersListList = () => {
           {crewMembers.map((crewMembers) => (
             <TableRow key={crewMembers._id}>
               <TableCell>{crewMembers.nome}</TableCell>
-              <TableCell>{crewMembers.armador}</TableCell>
-              <TableCell>{crewMembers.porto}</TableCell>
+              <TableCell>{crewMembers.nacionalidade}</TableCell>
+              <TableCell>{formatDate(crewMembers.dataNascimento)}</TableCell>
+              <TableCell>{crewMembers.localDeNascimento}</TableCell>
               <TableCell>{crewMembers.numeroAtendimento}</TableCell>
               <TableCell>{crewMembers.quantidadeON}</TableCell>
               <TableCell>{crewMembers.quantidadeOFF}</TableCell>

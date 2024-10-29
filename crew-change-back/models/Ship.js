@@ -8,7 +8,6 @@ const ShipSchema = new mongoose.Schema({
   numeroAtendimento: { type: String, required: true },
   quantidadeON: { type: Number },
   quantidadeOFF: { type: Number },
-  IMO: { type: String },
 });
 
 module.exports = mongoose.model('Ship', ShipSchema);

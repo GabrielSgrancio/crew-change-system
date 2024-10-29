@@ -17,18 +17,13 @@ const CrewMembersForm = () => {
     numeroAtendimento: '',
     nome: '',
     nacionalidade: '',
+    localDeNascimento: '',
     dataNascimento: '',
     passaporte: '',
     validadePassaporte: '',
     seamansBook: '',
     validadeSeamans: '',
     voo: '',
-    vooNumero: '',
-    data: '',
-    trajeto: '',
-    partida: '',
-    chegada: '',
-    companhiaAerea: '',
     rank: '',
   });
 
@@ -126,6 +121,14 @@ const CrewMembersForm = () => {
           margin="normal"
         />
         <TextField
+          label="Local de Nascimento"
+          name="localDeNascimento"
+          value={crewMember.localDeNascimento}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
           label="Data de Nascimento"
           name="dataNascimento"
           type="date"
@@ -193,66 +196,6 @@ const CrewMembersForm = () => {
             ))}
           </Select>
         </FormControl>
-        <TextField
-          label="Número do Voo"
-          name="vooNumero"
-          value={crewMember.vooNumero}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Data"
-          name="data"
-          type="date"
-          value={crewMember.data}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          label="Trajeto"
-          name="trajeto"
-          value={crewMember.trajeto}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
-        <TextField
-          label="Partida"
-          name="partida"
-          type="datetime-local"
-          value={crewMember.partida}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          label="Chegada"
-          name="chegada"
-          type="datetime-local"
-          value={crewMember.chegada}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          label="Companhia Aérea"
-          name="companhiaAerea"
-          value={crewMember.companhiaAerea}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
         <TextField
           label="Rank"
           name="rank"

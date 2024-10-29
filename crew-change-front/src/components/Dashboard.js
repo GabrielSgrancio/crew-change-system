@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import {
-  Card,
-  CardContent,
-  Typography,
-  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
   Container,
-  CardActions,
-  Button,
+  Typography,
 } from '@mui/material';
 
 const Dashboard = () => {
@@ -29,38 +30,38 @@ const Dashboard = () => {
   return (
     <Container sx={{ marginTop: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Próximos Voos
+        Movimentação de Tripulantes
       </Typography>
-      <Grid container spacing={4}>
-        {flights.map((flight) => (
-          <Grid item xs={12} sm={6} md={4} key={flight._id}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Voo {flight.numeroVoo}
-                </Typography>
-                <Typography variant="body1">
-                  Navio: {flight.ship?.armador || 'Não informado'}
-                </Typography>
-                <Typography variant="body2">
-                  Número de Tripulantes: {flight.onSigners.length}
-                </Typography>
-                <Typography variant="body2">
-                  Partida: {new Date(flight.partida).toLocaleString()}
-                </Typography>
-                <Typography variant="body2">
-                  Chegada: {new Date(flight.chegada).toLocaleString()}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary" component={Link} to={`/flights/${flight._id}`}>
-                  Detalhes
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="crew movement table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Nº</TableCell>
+              <TableCell align="center">Data / Hora</TableCell>
+              <TableCell align="center">Navio</TableCell>
+              <TableCell align="center">Terminal</TableCell>
+              <TableCell align="center">Quantidade</TableCell>
+              <TableCell align="center">Atendimento</TableCell>
+              <TableCell align="center">Tipo</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {flights.map((flight, index) => (
+              <TableRow key={flight._id}>
+                <TableCell align="center">{index + 1}</TableCell>
+                <TableCell align="center">
+                  {new Date(flight.partida).toLocaleString()} - {new Date(flight.chegada).toLocaleString()}
+                </TableCell>
+                <TableCell align="center">{flight.ship?.armador || 'Não informado'}</TableCell>
+                <TableCell align="center">{flight.terminal || '-'}</TableCell>
+                <TableCell align="center">{flight.onSigners.length}</TableCell>
+                <TableCell align="center">{flight.atendimento || 'N/A'}</TableCell>
+                <TableCell align="center">{flight.tipo || 'OFF'}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 };

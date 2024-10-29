@@ -4,6 +4,7 @@ const CrewMemberSchema = new mongoose.Schema({
     numeroAtendimento: { type: String, required: true },
     nome: { type: String, required: true },
     nacionalidade: { type: String, default: null },
+    localDeNascimento: { type: String, default: null },
     dataNascimento: { type: Date, default: null },
     passaporte: { type: String, default: null },
     validadePassaporte: { type: Date, default: null },
